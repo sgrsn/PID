@@ -10,7 +10,7 @@ class PID
         float control_PID(float target, float nowrpm);
         void setParameter(float new_Kp, float new_Ki, float new_Kd);
         void setParameter(float new_Ku, float new_Pu);
-        void reset(float target);
+        void reset(float target=0);
  
         float Ku;
         float Pu;
