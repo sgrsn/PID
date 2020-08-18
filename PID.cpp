@@ -13,8 +13,8 @@ PID::PID()
 float PID::control_P(float target, float nowrpm, float new_Kp)
 {
     float error = target - nowrpm;
-    float sousaryou = new_Kp*error;
-    return sousaryou;
+    float u = new_Kp*error;
+    return u;
 }
 float PID::control_PI(float target, float nowrpm)
 {
@@ -25,10 +25,10 @@ float PID::control_PI(float target, float nowrpm)
     float error = target - nowrpm;
     float dt = nowtime - prev_time;
     integral += (error + prev_error) / 2 * dt;
-    float sousaryou = Kp*error + Ki*integral;
+    float u = Kp*error + Ki*integral;
     prev_error = error;
     prev_time = micros();
-    return sousaryou;
+    return u;
 }
 float PID::control_PID(float target, float nowrpm)
 {
@@ -37,10 +37,10 @@ float PID::control_PID(float target, float nowrpm)
     float dt = 1000000 / (nowtime - prev_time);
     integral += (error + prev_error) / 2 * dt;
     float differential = (error - prev_error) / dt;
-    float sousaryou = Kp*error + Ki*integral + Kd*differential;
+    float u = Kp*error + Ki*integral + Kd*differential;
     prev_error = error;
     prev_time = micros();
-    return sousaryou;
+    return u;
 }
 void PID::setParameter(float new_Kp, float new_Ki, float new_Kd)
 {  
