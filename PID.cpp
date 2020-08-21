@@ -5,36 +5,36 @@ PID::PID()
 {
     integral    = 0;
     prev_error  = 0;
-    nowtime     = 0;
+    current_time     = 0;
     prev_time   = 0;
     lateD      = 0;
 }
 
-float PID::control_P(float target, float nowrpm, float new_Kp)
+float PID::control_P(float target, float current, float new_Kp)
 {
-    float error = target - nowrpm;
+    float error = target - current;
     float u = new_Kp*error;
     return u;
 }
-float PID::control_PI(float target, float nowrpm)
+float PID::control_PI(float target, float current)
 {
     Kp = 0.45 * Ku;
     Ti = 0.83 * Pu;
     Ki = (1 / Ti) * Kp;
-    nowtime = micros();
-    float error = target - nowrpm;
-    float dt = nowtime - prev_time;
+    current_time = micros();
+    float error = target - current;
+    float dt = current_time - prev_time;
     integral += (error + prev_error) / 2 * dt;
     float u = Kp*error + Ki*integral;
     prev_error = error;
     prev_time = micros();
     return u;
 }
-float PID::control_PID(float target, float nowrpm)
+float PID::control_PID(float target, float current)
 {
-    nowtime = micros();
-    float error = target - nowrpm;
-    float dt = 1000000 / (nowtime - prev_time);
+    current_time = micros();
+    float error = target - current;
+    float dt = 1000000 / (current_time - prev_time);
     integral += (error + prev_error) / 2 * dt;
     float differential = (error - prev_error) / dt;
     float u = Kp*error + Ki*integral + Kd*differential;

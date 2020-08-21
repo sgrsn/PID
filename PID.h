@@ -5,9 +5,9 @@ class PID
 {
     public:
         PID();
-        float control_P(float target, float nowrpm, float new_Kp);
-        float control_PI(float target, float nowrpm);
-        float control_PID(float target, float nowrpm);
+        float control_P(float target, float current, float new_Kp);
+        float control_PI(float target, float current);
+        float control_PID(float target, float current);
         void setParameter(float new_Kp, float new_Ki, float new_Kd);
         void setParameter(float new_Ku, float new_Pu);
         void reset(float target=0);
@@ -23,7 +23,7 @@ class PID
         private:
         float integral;
         float prev_error;
-        float nowtime;
+        float curernt_time;
         float prev_time;
         float lateD;
 };
