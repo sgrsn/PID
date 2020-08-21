@@ -23,7 +23,7 @@ class PID
         private:
         float integral;
         float prev_error;
-        float curernt_time;
+        float current_time;
         float prev_time;
         float lateD;
 };
