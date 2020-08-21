@@ -34,12 +34,12 @@ float PID::control_PID(float target, float current)
 {
     current_time = micros();
     float error = target - current;
-    float dt = 1000000 / (current_time - prev_time);
+    float dt = float(current_time - prev_time) / 1000000;
     integral += (error + prev_error) / 2 * dt;
     float differential = (error - prev_error) / dt;
     float u = Kp*error + Ki*integral + Kd*differential;
     prev_error = error;
-    prev_time = micros();
+    prev_time = current_time;
     return u;
 }
 void PID::setParameter(float new_Kp, float new_Ki, float new_Kd)
