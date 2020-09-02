@@ -8,6 +8,7 @@ PID::PID()
     current_time     = 0;
     prev_time   = 0;
     lateD      = 0;
+    prev_value = 0;
 }
 
 float PID::control_P(float target, float current, float new_Kp)
@@ -44,7 +45,6 @@ float PID::control_PID(float target, float current)
 }
 float PID::control_I_PD(float target, float current)
 {
-    static float prev_value = 0;
     current_time = micros();
     float error = target - current;
     float dt = float(current_time - prev_time) / 1000000;

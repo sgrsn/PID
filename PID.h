@@ -27,6 +27,7 @@ class PID
         unsigned long current_time;
         unsigned long prev_time;
         float lateD;
+        float prev_value;
 };
  
 #endif
